@@ -14,10 +14,10 @@ async function bootstrap() {
   app.enableCors(corsOptions);
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Tokenized Voting')
+    .setDescription('The Tokenized Voting API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('vote')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -22,7 +22,7 @@ export class AppService {
     this.provider = ethers.providers.getDefaultProvider('goerli', {
       alchemy: process.env.ALCHEMY_API_KEY
     });
-    this.signer = new ethers.Wallet(process.env.METAMASK_WALLET_PRIVATE_KEY, this.provider);
+    this.signer = new ethers.Wallet(process.env.PRIVATE_KEY, this.provider);
 
     this.myTokenContract = new ethers.Contract(
       MY_TOKEN_CONTRACT_ADDRESS,
@@ -61,12 +61,12 @@ export class AppService {
   }
 
   async getTransactionStatus(txnHash: string): Promise<string> {
-    const txnReceipt = await this.myTokenContract.provider.getTransaction(txnHash);
+    const txnReceipt = await this.provider.getTransaction(txnHash);
     return txnReceipt?.blockNumber ? 'Success' : 'Fail';
   }
 
   async getTransactionReceipt(txnHash: string): Promise<string> {
-    const txnReceipt = await this.myTokenContract.provider.getTransaction(txnHash);
+    const txnReceipt = await this.provider.getTransaction(txnHash);
     return JSON.stringify(txnReceipt);
   }
 
@@ -156,9 +156,8 @@ export class AppService {
     let proposalVoteCount = 0;
 
     try {
-      const winningProposalBN: BigNumber = await this.tokenizedBallotContract.connect(this.signer).winningProposal();
-      const winningProposalStr = ethers.utils.formatEther(winningProposalBN);
-      winningProposal = parseFloat(winningProposalStr);
+      const winningProposalBN = await this.tokenizedBallotContract.connect(this.signer).winningProposal();
+      winningProposal = parseFloat(winningProposalBN);
 
       const proposals = await this.tokenizedBallotContract.connect(this.signer).proposals(winningProposalBN);
       const proposalNameBytes32 = proposals[0];
@@ -180,19 +179,9 @@ export class AppService {
     }
     
     return {
-      message: `Successfully voted for proposal with ID: ${winningProposal}. Proposal name: ${proposalName}. Proposal vote count: ${proposalVoteCount}.`,
+      message: `Successfully voted for proposal with ID: ${winningProposal}, Proposal name: ${proposalName}, Proposal vote count: ${proposalVoteCount}.`,
       transactionHash: 'No hash. It was reading operation.',
       etherscanLink: `No etherscan link. It was reading operation.`
     }
   }
 }
-
-// {
-//   "address": "0xfcC5fB101131630Bd2154A7f0BcDC433159325c6",
-//   "amount": 5000
-// }
-
-// {
-//   "proposalId": 1,
-//   "amount": 5000
-// }

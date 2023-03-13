@@ -13,9 +13,14 @@
 
   <div class="container">
     <div class="col-lg-12 d-flex justify-content-center">
-      <button type="button" class="btn btn-warning" (click)="connectWallet()">
+      <button *ngIf="!isWalletConnected; else alreadyConnected" type="button" class="btn btn-warning" (click)="connectWallet()">
         Connect Wallet
       </button>
+      <ng-template #alreadyConnected>
+        <button type="button" class="btn btn-warning">
+          Connected
+        </button>
+      </ng-template>
       <button type="button" class="btn btn-primary mx-5" (click)="getTokenizedBallotContractAddress()">
         Get Tokenized Ballot Contract Address
       </button>
@@ -33,7 +38,7 @@
             <h5 class="card-title mb-4">Wallet info</h5>
             <p class="card-text"><span class="fw-bold">Wallet address:</span> {{ userAddress }}</p>
             <p class="card-text"><span class="fw-bold">ETH Balance:</span> {{ userETHBalance ? userETHBalance + ' ETH' : '' }}</p>
-            <p class="card-text"><span class="fw-bold">ERC20 Token Balance:</span> {{ userTokenBalance ? userTokenBalance + ' ETH' : '' }}</p>
+            <p class="card-text"><span class="fw-bold">ERC20 Token Balance:</span> {{ userTokenBalance ? userTokenBalance + ' MTK' : '' }}</p>
           </div>
         </div>
       </div>
@@ -43,7 +48,7 @@
             <h5 class="card-title mb-4">Contracts info</h5>
             <p class="card-text"><span class="fw-bold">Tokenized Ballot Contract address:</span> {{ tokenizedBallotContractAddress }}</p>
             <p class="card-text"><span class="fw-bold">My Token (ERC20) Contract address:</span> {{ myTokenContractAddress }}</p>
-            <p class="card-text"><span class="fw-bold">Total Supply: </span> {{ totalSupply ? totalSupply + ' ETH' : '' }}</p>
+            <p class="card-text"><span class="fw-bold">Total Supply: </span> {{ totalSupply ? totalSupply + ' MTK' : '' }}</p>
           </div>
         </div>
       </div>
