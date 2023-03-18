@@ -2,6 +2,9 @@
 <p>The project was created under Encode Club Solidity Bootcamp, Weekend Project #4</p>
 <p>Tech stack: Angular (frontend), NestJS (backend)</p>
 <p>Smart contracts have been deployed on Ethereum Goerli network (Testnet). You can find the addresses on backend project</p>
+<p>PS: Please, put a star to my original repo, I would highly appreciate it: https://github.com/Akezh/Tokenized-Ballot-App</p>
+<img width="100" alt="kitty" src="https://user-images.githubusercontent.com/39896828/226118711-b74c6011-596c-4a17-9beb-2370ed279c46.png">
+
 
 ## Frontend
 <p>To get all inputs and controls, you firstly need to connect your Metamask wallet</p>
